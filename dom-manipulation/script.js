@@ -263,11 +263,11 @@ function importFromJsonFile(event) {
 }
 
 /**
- * syncWithServer - Simulates syncing local quotes with a server.
+ * fetchQuotesFromServer - Simulates syncing local quotes with a server.
  * It fetches mock server data, merges it with local data,
  * and resolves conflicts by prioritizing server data.
  */
-async function syncWithServer() {
+async function fetchQuotesFromServer() {
   const messageElement = document.getElementById("message");
   messageElement.textContent = "Syncing with server...";
   messageElement.className = "mt-4 text-center text-sm font-medium text-gray-600";
@@ -322,7 +322,7 @@ document.getElementById("newQuote").addEventListener("click", () => {
     filterQuotes();
 });
 
-document.getElementById("syncQuotes").addEventListener("click", syncWithServer);
+document.getElementById("syncQuotes").addEventListener("click", fetchQuotesFromServer);
 
 // Initial setup:
 window.onload = function() {
@@ -339,5 +339,5 @@ window.onload = function() {
     filterQuotes();
 
     // Start a periodic sync every 30 seconds
-    setInterval(syncWithServer, 30000);
+    setInterval(fetchQuotesFromServer, 30000);
 };
