@@ -338,11 +338,13 @@ async function fetchQuotesFromServer() {
     
     messageElement.textContent = "Quotes synced with server!";
     messageElement.className = "mt-4 text-center text-sm font-medium text-green-600";
+    alert("Quotes synced with server!");
 
   } catch (error) {
     messageElement.textContent = "Error syncing with server.";
     messageElement.className = "mt-4 text-center text-sm font-medium text-red-600";
     console.error("Sync error:", error);
+    alert("Error syncing with server.");
   } finally {
     setTimeout(() => {
       messageElement.textContent = "";
