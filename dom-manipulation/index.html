@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Quote Generator</title>
+    <!-- Use Tailwind CSS for modern, responsive styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f3f4f6;
+      }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center p-4">
+    <!-- Main application container -->
+    <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-md text-center">
+        <h1 class="text-4xl font-bold text-gray-800 mb-6">Dynamic Quote Generator</h1>
+
+        <!-- Quote display area -->
+        <div id="quoteDisplay" class="bg-gray-50 p-6 rounded-lg mb-6 border-l-4 border-indigo-500">
+            <p id="quoteText" class="text-xl italic text-gray-700">Loading a quote...</p>
+            <p id="quoteAuthor" class="mt-2 text-sm text-gray-500">― Author</p>
+            <p id="quoteCategory" class="mt-4 text-xs font-semibold text-indigo-600 uppercase tracking-wide">Category</p>
+        </div>
+
+        <!-- Filter and New Quote Button -->
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <!-- Category Filter -->
+            <select id="categoryFilter" onchange="filterQuotes()" class="flex-1 w-full sm:w-auto p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200">
+                <option value="all">All Categories</option>
+                <!-- Dynamic categories will be populated here by JavaScript -->
+            </select>
+        
+            <!-- Button to get a new quote -->
+            <button id="newQuote" class="flex-1 w-full sm:w-auto bg-indigo-600 text-white font-bold py-3 px-6 rounded-full hover:bg-indigo-700 transition duration-300 transform hover:scale-105 shadow-md">
+                Show New Quote
+            </button>
+        </div>
+    </div>
+
+    <!-- Dynamic Quote Addition Form and File Operations -->
+    <div class="mt-8 bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4 text-center">Add a New Quote</h2>
+        <div class="space-y-4">
+            <!-- Input for the new quote text -->
+            <input id="newQuoteText" type="text" placeholder="Enter a new quote" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200" />
+            
+            <!-- Input for the quote's author -->
+            <input id="newQuoteAuthor" type="text" placeholder="Enter the author" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200" />
+
+            <!-- Input for the quote's category -->
+            <input id="newQuoteCategory" type="text" placeholder="Enter quote category" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200" />
+            
+            <!-- Button to add the quote -->
+            <button onclick="addQuote()" class="w-full bg-green-500 text-white font-bold py-3 px-6 rounded-full hover:bg-green-600 transition duration-300 transform hover:scale-105 shadow-md">
+                Add Quote
+            </button>
+        </div>
+        <!-- Success/error message area -->
+        <p id="message" class="mt-4 text-center text-sm font-medium"></p>
+        
+        <!-- JSON Import/Export and Sync Buttons -->
+        <div class="mt-6 flex flex-col sm:flex-row justify-between space-y-4 sm:space-y-0 sm:space-x-4">
+            <!-- File input for importing quotes -->
+            <label for="importFile" class="flex-1 cursor-pointer bg-blue-500 text-white text-center font-bold py-3 px-6 rounded-full hover:bg-blue-600 transition duration-300 shadow-md">
+                Import JSON
+                <input type="file" id="importFile" accept=".json" onchange="importFromJsonFile(event)" class="hidden" />
+            </label>
+            
+            <!-- Button for exporting quotes -->
+            <button onclick="exportQuotes()" class="flex-1 bg-yellow-500 text-white font-bold py-3 px-6 rounded-full hover:bg-yellow-600 transition duration-300 shadow-md">
+                Export JSON
+            </button>
+
+            <!-- Button for syncing with server -->
+            <button id="syncQuotes" class="flex-1 bg-purple-500 text-white font-bold py-3 px-6 rounded-full hover:bg-purple-600 transition duration-300 shadow-md">
+                Sync with Server
+            </button>
+        </div>
+    </div>
+
+    <!-- Link to the JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>
