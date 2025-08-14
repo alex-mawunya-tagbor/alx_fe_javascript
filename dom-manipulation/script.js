@@ -263,9 +263,8 @@ function importFromJsonFile(event) {
 }
 
 /**
- * fetchQuotesFromServer - Simulates syncing local quotes with a server.
- * It fetches mock server data, merges it with local data,
- * and resolves conflicts by prioritizing server data.
+ * fetchQuotesFromServer - Fetches mock quotes from a server using a mock API,
+ * merges it with local data, and resolves conflicts by prioritizing server data.
  */
 async function fetchQuotesFromServer() {
   const messageElement = document.getElementById("message");
@@ -273,9 +272,17 @@ async function fetchQuotesFromServer() {
   messageElement.className = "mt-4 text-center text-sm font-medium text-gray-600";
   
   try {
-    // Simulate fetching data from a server with a delay
-    const response = await new Promise(resolve => setTimeout(() => resolve(serverQuotes), 1500));
+    // Fetch data from a mock API endpoint
+    const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+    const serverData = await response.json();
     
+    // Convert the mock data into the format expected by the application
+    const serverQuotes = serverData.map(post => ({
+      text: post.body,
+      author: `User ${post.userId}`, // Use userId as a mock author
+      category: "placeholder",
+    }));
+
     // Create a map for quick lookups of existing quotes
     const localQuotesMap = new Map();
     quotes.forEach((quote, index) => {
@@ -287,7 +294,7 @@ async function fetchQuotesFromServer() {
     let addedCount = 0;
     
     // Iterate through the server's quotes and merge them with local data
-    response.forEach(serverQuote => {
+    serverQuotes.forEach(serverQuote => {
         const key = `${serverQuote.text}-${serverQuote.author}`;
         if (!localQuotesMap.has(key)) {
             // If the server quote is not in local storage, add it
