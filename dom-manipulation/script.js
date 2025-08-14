@@ -336,7 +336,7 @@ async function fetchQuotesFromServer() {
     populateCategories();
     filterQuotes();
     
-    messageElement.textContent = `Sync complete! Added ${addedCount} new quotes from the server.`;
+    messageElement.textContent = "Quotes synced with server!"; // Changed this line to match the test requirement
     messageElement.className = "mt-4 text-center text-sm font-medium text-green-600";
 
   } catch (error) {
